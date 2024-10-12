@@ -1,12 +1,35 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { login } from "../../libs/auth";
 
 const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   const handleTogglePassword = () => {
     setShowPassword(!showPassword);
+  };
+
+  const handleLogin = async () => {
+    try {
+      const result = await login(username, password);
+      console.log("Login Success:", result);
+
+      // Save user and jwt to localStorage, except password
+      const { jwt, user } = result;
+      localStorage.setItem("jwt", jwt);
+      localStorage.setItem("user", JSON.stringify(user));
+
+      // Redirect to home or another page on successful login
+      navigate("/article");
+    } catch (err) {
+      console.error("Login Failed:", err);
+      setError("Login failed. Please check your credentials.");
+    }
   };
 
   return (
@@ -19,12 +42,16 @@ const LoginPage = () => {
             <input
               type="text"
               placeholder="User Name"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
               className="w-full rounded-lg border border-gray-300 bg-yellow-100 p-3 text-gray-800 focus:border-yellow-500 focus:outline-none"
             />
             <div className="relative">
               <input
                 type={showPassword ? "text" : "password"}
                 placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 className="w-full rounded-lg border border-gray-300 bg-yellow-100 p-3 text-gray-800 focus:border-yellow-500 focus:outline-none"
               />
               <div
@@ -34,12 +61,13 @@ const LoginPage = () => {
                 {showPassword ? <AiOutlineEye /> : <AiOutlineEyeInvisible />}
               </div>
             </div>
-            <Link
-              to={"/home"}
+            {error && <p className="text-red-500">{error}</p>}
+            <button
+              onClick={handleLogin}
               className="from-secondary to-primary flex w-full justify-center rounded-lg bg-gradient-to-r py-3 font-semibold text-white hover:opacity-90"
             >
               Login
-            </Link>
+            </button>
           </div>
 
           <p className="text-slate-600">
