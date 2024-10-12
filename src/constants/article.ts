@@ -179,3 +179,42 @@ export const ARTICLES_LIST = {
     },
   },
 };
+
+export const ARTICLE_DETAIL = {
+  id: 14,
+  documentId: "rvbqpbpbgxjbqgofxdwiq09p",
+  title: "Trenggalek Berteman HAti",
+  description:
+    "Pada zaman dahulu Trenggalek terkenal daerah yang tandus dan kering, sehingga banyak orang makan nasi tiwul / gaplek. Hal itu menjadikan rasa keprihatinan bagi punggawa pemerintahan Kadipaten Trenggalek khususnya Adipati Minak Sopal. Karena rasa tanggung jawabnya terhadap rakyatnya, maka Adipati Minak Sopal punya gagasan untuk membangun Dam agar airnya bias mengaliri sawah-sawah yang ada di wilayah Trenggalek yang dulu terkenal sawah tadah hujan. Dalam mewujudkan gagasan itu Adipati Minak Sopal membangun Dam di daerah Bagong.Untuk membangun Dam Bagong tidak mudah karena arus air dari kawasan utara sangat besar sehingga Dam itu jebol dan rusak. Jebol dan rusaknya Dam itu ternyata karena ulah dari Penguasa Kawasan Gunung Wilis yang terkenal sakti bernama Raja Bedander. Konon Raja Bedander bermusuhan dengan Adipati Minak Sopal karena perebutan wilayah. Untuk itu Raja Bedander mengancam Trenggalek akan dimusnahkan dengan cara mendatangkan air yang besar dari sungai sebelah utara Trenggalek. Karena ada ancaman dari Raja Bedander maka Adipati Minakm Sopal berupaya menanggulangi dengan cara membuat Dam Bagong.Namun sebelum mengulas tentang Dam Bagong perlu kita menyimak peristiwa permusuhan Raja Bedander dengan Adipati Minak Sopal. Dulu Raja Bedander mempunyai wilayah di kawasan lereng Gunung Wilis. Karena ambisinya dia ingin mengembangkan wilayah ke selatan.Wilayah selatan adalah wilayah kawasan Adipati Minak Sopal sehingga terjadi perebutan wilayah. Agar tidak mengorbankan rakyatnya maka Adipati Minak Sopal mengajak bertanding Raja Bedander adu kesaktian. Karena tantangan dari Adipati Minak Sopal maka Raja Bedander beserta prajuritnya berangkat bersama-sama menuju Trenggalek, Karena perjalanannya dari lereng Gunung Wilis sangat jauh, maka rombongan Raja Bedander beristirahat di daerah Srabah dengan menancapkan payungnya di tanah yang akhirnya sampai sekarang bekas istirahatnya Raja Bedander di Srabah dinamai Watu Payung karena ada batu yang menyerupai payung.Usai istirahat di Srabah berangkat ke selatan. Di selatan desa Srabah rombongan Raja Bedander istirahat lagi sambil menghibur diri dengan diiringi gamelan. Rasa capeknya sudah hilang rombongan berangkat lagi ke selatan.",
+  cover_image_url:
+    "https://is3.cloudhost.id/img-kbrt/2022/09/Fakta-Fakta-menarik-tentang-Trenggalek-yang-jarang-diketahui.jpg",
+  createdAt: "2024-10-11T19:45:42.784Z",
+  updatedAt: "2024-10-11T19:45:42.784Z",
+  publishedAt: "2024-10-11T19:45:44.223Z",
+  locale: null,
+  user: {
+    id: 1,
+    documentId: "ovrbscwihfyfpu51tvbwe6ju",
+    username: "test",
+    email: "test@gmail.com",
+    provider: "local",
+    confirmed: true,
+    blocked: false,
+    createdAt: "2024-10-01T12:36:32.694Z",
+    updatedAt: "2024-10-01T12:36:32.694Z",
+    publishedAt: "2024-10-01T12:36:32.789Z",
+    locale: null,
+  },
+  category: {
+    id: 3,
+    documentId: "ry6927r086nkrpmprmx8is5u",
+    name: "Village",
+    description: null,
+    createdAt: "2024-10-11T08:47:32.977Z",
+    updatedAt: "2024-10-11T08:47:32.977Z",
+    publishedAt: "2024-10-11T08:47:32.972Z",
+    locale: null,
+  },
+  comments: [],
+  localizations: [],
+};

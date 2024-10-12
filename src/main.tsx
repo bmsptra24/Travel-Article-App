@@ -7,11 +7,13 @@ import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ErrorPage from "./pages/error/ErrorPage.tsx";
 import DashboardPage from "./pages/dashboard/DashboardPage.tsx";
-import HomePage from "./pages/home/HomePage.tsx";
+import ArticlePage from "./pages/article/ArticlePage.tsx";
 import LoginPage from "./pages/auth/LoginPage.tsx";
 import RegisterPage from "./pages/auth/RegisterPage.tsx";
 import SuperAdminPage from "./pages/superadmin/SuperAdminPage.tsx";
 import MyCommentsPage from "./pages/profile/MyCommentsPage.tsx";
+import DetailArticle from "./pages/article/DetailArticlePage.tsx";
+import ArticleLayout from "./layouts/ArticleLayout.tsx";
 
 const router = createBrowserRouter([
   {
@@ -30,9 +32,19 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
   },
   {
-    path: "/home",
-    element: <HomePage />,
+    path: "/article",
+    element: <ArticleLayout />,
     errorElement: <ErrorPage />,
+    children: [
+      {
+        path: "",
+        element: <ArticlePage />,
+      },
+      {
+        path: ":id",
+        element: <DetailArticle />,
+      },
+    ],
   },
   {
     path: "/profile",
