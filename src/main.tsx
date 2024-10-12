@@ -14,6 +14,8 @@ import SuperAdminPage from "./pages/superadmin/SuperAdminPage.tsx";
 import MyCommentsPage from "./pages/profile/MyCommentsPage.tsx";
 import DetailArticle from "./pages/article/DetailArticlePage.tsx";
 import ArticleLayout from "./layouts/ArticleLayout.tsx";
+import MyArticlePage from "./pages/article/MyArticlePage.tsx";
+import EditArticlePage from "./pages/article/FormArticlePage.tsx";
 
 const router = createBrowserRouter([
   {
@@ -43,6 +45,14 @@ const router = createBrowserRouter([
       {
         path: ":id",
         element: <DetailArticle />,
+      },
+      {
+        path: "edit",
+        element: <MyArticlePage />,
+      },
+      {
+        path: "edit/:id",
+        element: <EditArticlePage />,
       },
     ],
   },
