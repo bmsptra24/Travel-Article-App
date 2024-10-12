@@ -30,6 +30,12 @@ const Navbar = () => {
               to="/dashboard"
               className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
             >
+              Dashboard
+            </Link>
+            <Link
+              to="/article/edit"
+              className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
+            >
               My Articles
             </Link>
             <Link
