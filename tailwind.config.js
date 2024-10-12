@@ -4,10 +4,10 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: "#FADFA1",
-        secondary: "#C96868",
-        accent: "#7EACB5",
-        neutral: "#FFF4EA",
+        primary: "#92B4EC",
+        secondary: "#FFD24C",
+        accent: "#FFE69A",
+        neutral: "#FFFFFF",
       },
       fontFamily: {
         raleway: ["Raleway", "sans-serif"],
