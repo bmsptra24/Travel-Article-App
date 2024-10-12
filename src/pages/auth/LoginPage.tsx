@@ -10,7 +10,7 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="bg-peach flex h-screen items-center justify-center">
+    <div className="font-raleway bg-neutral flex h-screen items-center justify-center">
       <div className="flex max-w-4xl overflow-hidden rounded-lg bg-white shadow-lg">
         {/* Form Section */}
         <div className="flex w-96 flex-col justify-center p-10">
@@ -40,7 +40,7 @@ const LoginPage = () => {
           </button>
           <div className="my-4 text-center text-gray-500">Or</div>
           <button className="flex w-full items-center justify-center rounded-lg border border-gray-300 py-3 text-gray-800 hover:bg-gray-100">
-            <FaGoogle className="mr-2" /> Login with Google
+            Register
           </button>
         </div>
 
