@@ -14,8 +14,11 @@ import SuperAdminPage from "./pages/superadmin/SuperAdminPage.tsx";
 import MyCommentsPage from "./pages/profile/MyCommentsPage.tsx";
 import DetailArticle from "./pages/article/DetailArticlePage.tsx";
 import ArticleLayout from "./layouts/ArticleLayout.tsx";
-import MyArticlePage from "./pages/article/MyArticlePage.tsx";
-import EditArticlePage from "./pages/article/FormArticlePage.tsx";
+import MyArticlePage from "./pages/dashboard/MyArticlePage.tsx";
+import EditArticlePage from "./pages/dashboard/FormArticlePage.tsx";
+import DashboardLayout from "./layouts/DashboardLayout.tsx";
+import CategoryPage from "./pages/dashboard/CategoryPage.tsx";
+import EditCategoryPage from "./pages/dashboard/FormCategoryPage.tsx";
 
 const router = createBrowserRouter([
   {
@@ -46,24 +49,50 @@ const router = createBrowserRouter([
         path: ":id",
         element: <DetailArticle />,
       },
+    ],
+  },
+  {
+    path: "/dashboard",
+    element: <DashboardLayout />,
+    errorElement: <ErrorPage />,
+    children: [
       {
-        path: "edit",
-        element: <MyArticlePage />,
+        path: "",
+        element: <DashboardPage />,
       },
       {
-        path: "edit/:id",
-        element: <EditArticlePage />,
+        path: "article",
+        errorElement: <ErrorPage />,
+        children: [
+          {
+            path: "",
+            element: <MyArticlePage />,
+          },
+          {
+            path: ":id",
+            element: <EditArticlePage />,
+          },
+        ],
+      },
+      {
+        path: "category",
+        errorElement: <ErrorPage />,
+        children: [
+          {
+            path: "",
+            element: <CategoryPage />,
+          },
+          {
+            path: ":id",
+            element: <EditCategoryPage />,
+          },
+        ],
       },
     ],
   },
   {
     path: "/profile",
     element: <MyCommentsPage />,
-    errorElement: <ErrorPage />,
-  },
-  {
-    path: "/dashboard",
-    element: <DashboardPage />,
     errorElement: <ErrorPage />,
   },
   {

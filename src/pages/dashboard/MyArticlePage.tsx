@@ -34,7 +34,7 @@ const MyArticlePage = () => {
             </div>
 
             <div className="flex gap-2">
-              <Link to={"/article/edit/" + article.documentId}>
+              <Link to={article.documentId}>
                 <Text
                   variant="small-description"
                   className="bg-primary rounded-xl px-4 py-2 transition-all hover:bg-blue-400"

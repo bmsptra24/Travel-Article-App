@@ -1,16 +1,15 @@
 import { useNavigate } from "react-router-dom";
 import Container from "../../components/Container";
 import Text from "../../components/Text";
-import { CATEGORY_LIST } from "../../constants/category";
 
-const EditArticlePage = () => {
+const EditCategoryPage = () => {
   const navigate = useNavigate();
   const handleSave = async () => {
-    navigate("/article/edit");
+    navigate("/dashboard/category");
   };
   return (
     <Container className="flex flex-col gap-10 p-10">
-      <Text variant="title">Edit Article</Text>
+      <Text variant="title">Edit Category</Text>
 
       <div className="flex flex-col gap-4">
         <input
@@ -21,25 +20,6 @@ const EditArticlePage = () => {
 
         <textarea
           placeholder="Description"
-          className="w-full rounded-lg border border-gray-300 p-3 text-gray-800 focus:outline-none"
-        />
-
-        {/* Dropdown untuk kategori */}
-        <select className="w-full rounded-lg border border-gray-300 p-3 text-gray-800 focus:outline-none">
-          {CATEGORY_LIST.data.map((category, index) => (
-            <option key={index} value={category.documentId}>
-              {category.name}
-            </option>
-          ))}
-        </select>
-
-        {/* Input untuk upload gambar */}
-        <Text variant="small-description" className="mt-4">
-          Cover Image
-        </Text>
-        <input
-          type="file"
-          accept="image/*"
           className="w-full rounded-lg border border-gray-300 p-3 text-gray-800 focus:outline-none"
         />
       </div>
@@ -54,4 +34,4 @@ const EditArticlePage = () => {
   );
 };
 
-export default EditArticlePage;
+export default EditCategoryPage;

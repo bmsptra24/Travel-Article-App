@@ -8,6 +8,7 @@ const ArticlesPage = () => {
       {ARTICLES_LIST.data.map((item, index) => (
         <Card
           key={index}
+          id={item.documentId}
           title={item.title}
           description={item.description}
           imageCover={item.cover_image_url}

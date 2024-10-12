@@ -4,15 +4,16 @@ import Text from "../Text";
 
 // Define the type for the props
 interface CardProps {
+  id: string;
   title: string;
   description: string;
   imageCover: string;
 }
 
-const Card: React.FC<CardProps> = ({ title, description, imageCover }) => {
+const Card: React.FC<CardProps> = ({ id, title, description, imageCover }) => {
   return (
     <Link
-      to={"/article/1"}
+      to={"/article/" + id}
       className="flex cursor-pointer justify-between gap-20"
     >
       {/* Text Content */}

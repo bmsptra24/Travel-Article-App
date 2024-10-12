@@ -10,7 +10,7 @@ const Navbar = () => {
 
   return (
     <nav className="flex items-center gap-10 border-b px-10 py-3">
-      <Link to={"/"} className="text-2xl font-bold">
+      <Link to={"/article"} className="text-2xl font-bold">
         Lentera
       </Link>
       <input
@@ -31,12 +31,6 @@ const Navbar = () => {
               className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
             >
               Dashboard
-            </Link>
-            <Link
-              to="/article/edit"
-              className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
-            >
-              My Articles
             </Link>
             <Link
               to="/profile"
