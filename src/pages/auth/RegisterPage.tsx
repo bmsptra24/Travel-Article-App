@@ -1,12 +1,53 @@
 import React, { useState } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { RegisterResponse } from "../../types/auth";
 
 const RegisterPage = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   const handleTogglePassword = () => {
     setShowPassword(!showPassword);
+  };
+
+  const handleRegister = async () => {
+    const urlencoded = new URLSearchParams();
+    urlencoded.append("email", email);
+    urlencoded.append("username", username);
+    urlencoded.append("password", password);
+
+    const requestOptions: RequestInit = {
+      method: "POST",
+      body: urlencoded,
+      redirect: "follow",
+    };
+
+    try {
+      const response = await fetch(
+        "https://extra-brooke-yeremiadio-46b2183e.koyeb.app/api/auth/local/register",
+        requestOptions,
+      );
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.statusText}`);
+      }
+
+      const result: RegisterResponse = await response.json();
+      console.log("Registration Success:", result);
+
+      // Store JWT or user data if needed
+      localStorage.setItem("jwt", result.jwt);
+      // Redirect to login or home page after successful registration
+      navigate("/login");
+    } catch (error) {
+      console.error("Registration error:", error);
+      setError("Registration failed. Please try again.");
+    }
   };
 
   return (
@@ -19,17 +60,23 @@ const RegisterPage = () => {
             <input
               type="email"
               placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               className="w-full rounded-lg border border-gray-300 p-3 text-gray-800 focus:border-yellow-500 focus:outline-none"
             />
             <input
               type="text"
               placeholder="Username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
               className="w-full rounded-lg border border-gray-300 p-3 text-gray-800 focus:border-yellow-500 focus:outline-none"
             />
             <div className="relative">
               <input
                 type={showPassword ? "text" : "password"}
                 placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 className="w-full rounded-lg border border-gray-300 p-3 text-gray-800 focus:border-yellow-500 focus:outline-none"
               />
               <div
@@ -39,12 +86,13 @@ const RegisterPage = () => {
                 {showPassword ? <AiOutlineEye /> : <AiOutlineEyeInvisible />}
               </div>
             </div>
-            <Link
-              to={"/home"}
+            {error && <p className="text-red-500">{error}</p>}
+            <button
+              onClick={handleRegister}
               className="flex w-full justify-center rounded-lg bg-gradient-to-r from-secondary to-primary py-3 font-semibold text-white hover:opacity-90"
             >
-              Continue
-            </Link>
+              Register
+            </button>
           </div>
 
           <p className="text-slate-600">
@@ -60,7 +108,7 @@ const RegisterPage = () => {
         <div className="hidden w-[24rem] md:block">
           <img
             src="https://images.unsplash.com/photo-1546484475-7f7bd55792da?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-            alt="Login Image"
+            alt="Register Image"
             className="h-full w-full rounded-3xl object-cover"
           />
         </div>

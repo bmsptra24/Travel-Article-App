@@ -3,6 +3,11 @@ export interface LoginResponse {
   user: User;
 }
 
+export interface RegisterResponse {
+  jwt: string;
+  user: User;
+}
+
 export interface User {
   id: number;
   documentId: string;

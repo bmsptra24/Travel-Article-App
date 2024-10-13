@@ -1,4 +1,4 @@
-import { LoginResponse, User } from "../types/auth";
+import { LoginResponse, RegisterResponse, User } from "../types/auth";
 
 // Function to get token
 export function getToken() {
@@ -62,5 +62,40 @@ export async function getMe(): Promise<void> {
     console.log(result);
   } catch (error) {
     console.error("Error:", error);
+  }
+}
+
+// Function to register a new user
+export async function register(
+  email: string,
+  username: string,
+  password: string,
+): Promise<RegisterResponse> {
+  const urlencoded = new URLSearchParams();
+  urlencoded.append("email", email);
+  urlencoded.append("username", username);
+  urlencoded.append("password", password);
+
+  const requestOptions: RequestInit = {
+    method: "POST",
+    body: urlencoded,
+    redirect: "follow",
+  };
+
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_ENDPOINT_URL}/api/auth/local/register`,
+      requestOptions,
+    );
+
+    if (!response.ok) {
+      throw new Error(`Error: ${response.statusText}`);
+    }
+
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    console.error("Registration error:", error);
+    throw error;
   }
 }
