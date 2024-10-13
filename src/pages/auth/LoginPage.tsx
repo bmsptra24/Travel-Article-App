@@ -33,7 +33,7 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="font-raleway bg-accent flex h-screen items-center justify-center">
+    <div className="flex h-screen items-center justify-center bg-accent font-raleway">
       <div className="flex rounded-3xl bg-white p-0 shadow-xl md:p-4">
         {/* Form Section */}
         <div className="flex w-[24rem] flex-col justify-center gap-8 p-10">
@@ -44,7 +44,7 @@ const LoginPage = () => {
               placeholder="User Name"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              className="w-full rounded-lg border border-gray-300 bg-yellow-100 p-3 text-gray-800 focus:border-yellow-500 focus:outline-none"
+              className="w-full rounded-lg border border-gray-300 p-3 text-gray-800 focus:border-yellow-500 focus:outline-none"
             />
             <div className="relative">
               <input
@@ -52,7 +52,7 @@ const LoginPage = () => {
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full rounded-lg border border-gray-300 bg-yellow-100 p-3 text-gray-800 focus:border-yellow-500 focus:outline-none"
+                className="w-full rounded-lg border border-gray-300 p-3 text-gray-800 focus:border-yellow-500 focus:outline-none"
               />
               <div
                 className="absolute inset-y-0 right-3 flex cursor-pointer items-center"
@@ -64,7 +64,7 @@ const LoginPage = () => {
             {error && <p className="text-red-500">{error}</p>}
             <button
               onClick={handleLogin}
-              className="from-secondary to-primary flex w-full justify-center rounded-lg bg-gradient-to-r py-3 font-semibold text-white hover:opacity-90"
+              className="flex w-full justify-center rounded-lg bg-gradient-to-r from-secondary to-primary py-3 font-semibold text-white hover:opacity-90"
             >
               Login
             </button>
