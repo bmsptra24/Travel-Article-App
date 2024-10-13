@@ -1,23 +1,17 @@
 import Container from "../../components/Container";
 import Text from "../../components/Text";
-import { ARTICLES_LIST } from "../../constants/article";
 import { Link } from "react-router-dom";
 import ArticleCommentsPieChart from "../../components/Chart/ArticleCommentsPieChart";
+import { useArticleStore } from "../../store/article";
+import { useEffect } from "react";
 
 const DashboardPage = () => {
-  // Hitung jumlah komentar untuk setiap artikel
-  const articlesWithCommentsCount = ARTICLES_LIST.data.map((article) => ({
-    ...article,
-    commentsCount: article.comments.length, // Misalkan komentar berada di dalam artikel
-  }));
+  const { articles, fetchTopArticlesByComments, loading, error } =
+    useArticleStore();
 
-  // Urutkan artikel berdasarkan jumlah komentar
-  const sortedArticles = articlesWithCommentsCount.sort(
-    (a, b) => b.commentsCount - a.commentsCount,
-  );
-
-  // Ambil 5 artikel teratas
-  const top5Articles = sortedArticles.slice(0, 5);
+  useEffect(() => {
+    fetchTopArticlesByComments();
+  }, [fetchTopArticlesByComments]);
 
   return (
     <Container className="p-10">
@@ -33,7 +27,11 @@ const DashboardPage = () => {
 
         {/* Top 5 Aarticle */}
         <div className="flex flex-col gap-4">
-          {top5Articles.map((article, index) => (
+          {articles && loading && (
+            <div className="h-96 animate-pulse rounded-3xl bg-slate-200"></div>
+          )}
+          {error && <p>{error}</p>}
+          {articles?.data.map((article, index) => (
             <Link
               to={"/article/" + article.documentId}
               key={index}
@@ -48,7 +46,7 @@ const DashboardPage = () => {
                 </Text>
               </div>
               <Text className="text-nowrap">
-                {article.commentsCount} Coments
+                {article.comments?.length} Coments
               </Text>
             </Link>
           ))}

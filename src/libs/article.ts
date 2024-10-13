@@ -7,6 +7,7 @@ export async function getArticles(
   pageSize: number = 10,
   titleFilter?: string,
   categoryFilter?: string,
+  userId: "*" | number = "*",
 ): Promise<ArticlesList | undefined> {
   const url = `${import.meta.env.VITE_ENDPOINT_URL}/api/articles?populate=*`;
 
@@ -15,7 +16,7 @@ export async function getArticles(
     "pagination[page]": page.toString(),
     "pagination[pageSize]": pageSize.toString(),
     "populate[comments][populate][user]": "*",
-    "populate[user]": "*",
+    "populate[user]": userId.toString(),
     "populate[category]": "*",
   });
 
@@ -67,7 +68,7 @@ export async function getArticleById(
       throw new Error(`HTTP error! status: ${response.status}`);
     }
     const result = await response.json();
-    console.log(result);
+    console.log({ result });
     return result;
   } catch (error) {
     console.error("Error:", error);
@@ -76,7 +77,7 @@ export async function getArticleById(
 
 // Function to delete an article by its ID
 export async function deleteArticle(
-  documentId: number,
+  documentId: string,
 ): Promise<ArticleById | undefined> {
   const url = `${import.meta.env.VITE_ENDPOINT_URL}/api/articles/${documentId}`;
 
@@ -135,6 +136,46 @@ export async function createArticle(
     }
     const result = await response.json();
     console.log("Article created successfully:", result);
+    return result;
+  } catch (error) {
+    console.error("Error:", error);
+  }
+}
+
+// Function to edit an article
+export async function editArticle(
+  articleId: string,
+  title: string,
+  description: string,
+  coverImageUrl: string,
+  categoryId: number,
+): Promise<ArticleById | undefined> {
+  const url = `${import.meta.env.VITE_ENDPOINT_URL}/api/articles/${articleId}`;
+
+  const requestOptions: RequestInit = {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${getToken()}`,
+    },
+    body: JSON.stringify({
+      data: {
+        title,
+        description,
+        cover_image_url: coverImageUrl,
+        category: categoryId,
+      },
+    }),
+    redirect: "follow" as RequestRedirect,
+  };
+
+  try {
+    const response = await fetch(url, requestOptions);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const result = await response.json();
+    console.log("Article updated successfully:", result);
     return result;
   } catch (error) {
     console.error("Error:", error);

@@ -18,8 +18,14 @@ interface ArticleState {
     titleFilter?: string,
     categoryFilter?: string,
   ) => Promise<void>;
+  fetchTopArticlesByComments: () => Promise<void>;
+  fetchArticlesByUserId: (
+    userId: number,
+    page?: number,
+    pageSize?: number,
+  ) => Promise<void>; // Fungsi baru
   fetchArticleById: (id: string) => Promise<ArticleById | undefined>;
-  removeArticle: (id: number) => Promise<void>;
+  removeArticle: (id: string) => Promise<void>;
   addArticle: (
     title: string,
     description: string,
@@ -34,7 +40,6 @@ export const useArticleStore = create<ArticleState>((set) => ({
   error: null,
   selectedArticle: null,
 
-  // Fetch articles with pagination and filters
   fetchArticles: async (
     page = 1,
     pageSize = 10,
@@ -50,7 +55,7 @@ export const useArticleStore = create<ArticleState>((set) => ({
         categoryFilter,
       );
       if (result) {
-        set({ articles: result }); // Simpan data artikel di state
+        set({ articles: result });
       }
     } catch (error) {
       set({ error: (error as Error).message });
@@ -59,13 +64,23 @@ export const useArticleStore = create<ArticleState>((set) => ({
     }
   },
 
-  // Fetch a single article by ID
-  fetchArticleById: async (id: string) => {
+  fetchTopArticlesByComments: async () => {
     set({ loading: true, error: null });
     try {
-      const article: ArticleById | undefined = await getArticleById(id);
-      set({ selectedArticle: article?.data });
-      return article; // Kembalikan data artikel
+      const result = await getArticles();
+      if (result && result.data) {
+        const articlesWithCommentsCount = result.data.map((article) => ({
+          ...article,
+          commentsCount: article.comments?.length,
+        }));
+
+        const sortedArticles = articlesWithCommentsCount.sort(
+          (a, b) => b.commentsCount - a.commentsCount,
+        );
+
+        const topArticles = sortedArticles.slice(0, 5);
+        set({ articles: { ...result, data: topArticles } });
+      }
     } catch (error) {
       set({ error: (error as Error).message });
     } finally {
@@ -73,8 +88,40 @@ export const useArticleStore = create<ArticleState>((set) => ({
     }
   },
 
-  // Delete an article by ID
-  removeArticle: async (id: number) => {
+  fetchArticlesByUserId: async (userId: number, page = 1, pageSize = 10) => {
+    set({ loading: true, error: null });
+    try {
+      const result: ArticlesList | undefined = await getArticles(
+        page,
+        pageSize,
+        undefined,
+        undefined,
+        userId,
+      );
+      if (result) {
+        set({ articles: result });
+      }
+    } catch (error) {
+      set({ error: (error as Error).message });
+    } finally {
+      set({ loading: false });
+    }
+  },
+
+  fetchArticleById: async (id: string) => {
+    set({ loading: true, error: null });
+    try {
+      const article: ArticleById | undefined = await getArticleById(id);
+      set({ selectedArticle: article?.data });
+      return article;
+    } catch (error) {
+      set({ error: (error as Error).message });
+    } finally {
+      set({ loading: false });
+    }
+  },
+
+  removeArticle: async (id: string) => {
     set({ loading: true, error: null });
     try {
       await deleteArticle(id);
@@ -82,7 +129,9 @@ export const useArticleStore = create<ArticleState>((set) => ({
         articles: {
           ...state.articles!,
           data:
-            state.articles?.data.filter((article) => article.id !== id) || [],
+            state.articles?.data.filter(
+              (article) => article.documentId !== id,
+            ) || [],
         },
       }));
     } catch (error) {
@@ -92,7 +141,6 @@ export const useArticleStore = create<ArticleState>((set) => ({
     }
   },
 
-  // Create a new article
   addArticle: async (
     title: string,
     description: string,
@@ -111,7 +159,7 @@ export const useArticleStore = create<ArticleState>((set) => ({
         set((state) => ({
           articles: {
             ...state.articles!,
-            data: [...(state.articles?.data || []), newArticle.data], // Pastikan state.articels tidak null
+            data: [...(state.articles?.data || []), newArticle.data],
           },
         }));
       }

@@ -1,8 +1,14 @@
-import { LoginResponse } from "../types/auth";
+import { LoginResponse, User } from "../types/auth";
 
 // Function to get token
 export function getToken() {
   return localStorage.getItem("jwt") || "";
+}
+
+export function getUser() {
+  const stringUser = localStorage.getItem("user");
+  if (!stringUser) return null;
+  return JSON.parse(stringUser) as User;
 }
 
 // Function to login
