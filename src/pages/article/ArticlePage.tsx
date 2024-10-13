@@ -5,7 +5,6 @@ import { useArticleStore } from "../../store/article";
 
 const ArticlesPage = () => {
   const { articles, fetchArticles, loading, error } = useArticleStore();
-
   useEffect(() => {
     fetchArticles();
   }, [fetchArticles]);

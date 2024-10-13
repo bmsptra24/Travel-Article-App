@@ -9,7 +9,8 @@ export async function getArticles(
   categoryFilter?: string,
   userId: "*" | number = "*",
 ): Promise<ArticlesList | undefined> {
-  const url = `${import.meta.env.VITE_ENDPOINT_URL}/api/articles?populate=*`;
+  // ! CAN'T FILTERED
+  const url = `${import.meta.env.VITE_ENDPOINT_URL}/api/articles?`;
 
   // Build query parameters
   const params = new URLSearchParams({

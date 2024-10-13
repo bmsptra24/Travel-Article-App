@@ -1,34 +1,35 @@
+import { Link } from "react-router-dom";
+import Text from "../../components/Text";
 import { useState } from "react";
-import reactLogo from "../../assets/react.svg";
-import viteLogo from "/vite.svg";
 
-function LandingPage() {
-  const [count, setCount] = useState(0);
+const LandingPage = () => {
+  const [isHovered, setIsHovered] = useState(false);
 
   return (
-    <>
-      <div className="bg-sky-700 px-4 py-2 text-white hover:bg-sky-800 sm:px-8 sm:py-3">
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/LandingPage.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div className="flex h-screen flex-col bg-gray-100">
+      <main className="relative flex h-[90%] flex-grow flex-col items-center justify-center">
+        <Link
+          to={"login"}
+          className="absolute z-10"
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+        >
+          <Text variant="title" className="cursor-pointer text-neutral">
+            Explore now!
+          </Text>
+        </Link>
+        <img
+          src="https://images.unsplash.com/photo-1555400038-63f5ba517a47?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+          alt="nature-bg"
+          className="h-full w-full object-cover"
+        />
+        <div
+          className="absolute inset-0 bg-black transition-all"
+          style={{ opacity: isHovered ? 0.2 : 0.5 }}
+        ></div>
+      </main>
+    </div>
   );
-}
+};
 
 export default LandingPage;
