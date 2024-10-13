@@ -65,6 +65,16 @@ export async function getMe(): Promise<void> {
   }
 }
 
+// Function to logout
+export function logout() {
+  try {
+    localStorage.removeItem("jwt");
+    localStorage.removeItem("user");
+  } catch (error) {
+    console.error("Error:", error);
+  }
+}
+
 // Function to register a new user
 export async function register(
   email: string,

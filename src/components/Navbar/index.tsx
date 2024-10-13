@@ -1,13 +1,16 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { logout } from "../../libs/auth";
 
 const Navbar = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
-
   const toggleDropdown = () => {
     setDropdownOpen((prev) => !prev);
   };
 
+  const handleLogout = () => {
+    logout();
+  };
   return (
     <nav className="flex items-center gap-10 border-b px-10 py-3">
       <Link to={"/article"} className="text-2xl font-bold">
@@ -37,6 +40,13 @@ const Navbar = () => {
               className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
             >
               Profile
+            </Link>
+            <Link
+              to="/login"
+              onClick={handleLogout}
+              className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
+            >
+              Logout
             </Link>
           </div>
         )}

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";
 import { RegisterResponse } from "../../types/auth";
+import { register } from "../../libs/auth";
 
 const RegisterPage = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -16,28 +17,12 @@ const RegisterPage = () => {
   };
 
   const handleRegister = async () => {
-    const urlencoded = new URLSearchParams();
-    urlencoded.append("email", email);
-    urlencoded.append("username", username);
-    urlencoded.append("password", password);
-
-    const requestOptions: RequestInit = {
-      method: "POST",
-      body: urlencoded,
-      redirect: "follow",
-    };
-
     try {
-      const response = await fetch(
-        "https://extra-brooke-yeremiadio-46b2183e.koyeb.app/api/auth/local/register",
-        requestOptions,
+      const result: RegisterResponse = await register(
+        email,
+        username,
+        password,
       );
-
-      if (!response.ok) {
-        throw new Error(`Error: ${response.statusText}`);
-      }
-
-      const result: RegisterResponse = await response.json();
       console.log("Registration Success:", result);
 
       // Store JWT or user data if needed
